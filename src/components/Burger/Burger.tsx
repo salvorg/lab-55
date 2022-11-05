@@ -12,19 +12,19 @@ interface Props {
 }
 
 const Burger: React.FC<Props> = ({state}) => {
-  const ingredients = () => {
-    const arr = [];
-    for (let i = 0; i < state.length; i++) {
-      for (let j = 0; j < state[j].count; j++) {
-        if (state[j].count !== 0) {
-          const obj = {name: state[j].name, id: state[j].id};
-          arr.push(obj);
-        }
+  const arr = [];
+
+  for (let i = 0; i < state.length; i++) {
+    const forCount = state.filter(item => item.id === i + 1);
+
+    if (forCount[0].count > 0) {
+      for (let j = 0; j < forCount[0].count; j++) {
+        arr.push(forCount[0]);
       }
     }
-    console.log(arr);
-    return arr;
-  };
+  }
+
+  console.log(arr);
 
   return (
     <div className="Burger">
@@ -32,7 +32,7 @@ const Burger: React.FC<Props> = ({state}) => {
         <div className="Seeds1"></div>
         <div className="Seeds2"></div>
       </div>
-      {ingredients().map(item => (<div key={item.id} className={item.name}></div>))}
+      {arr.map((item, index) => <div key={index} className={item.name}></div>)}
       <div className="BreadBottom"></div>
     </div>
   );
